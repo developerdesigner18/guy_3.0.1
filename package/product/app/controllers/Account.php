@@ -21,36 +21,12 @@ class Account extends Controller {
         if(!empty($_POST)) {
 
             /* Clean some posted variables */
-            $_POST['email']		= filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-            $_POST['name']		= filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+            $_POST['email']     = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+            $_POST['name']      = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
             $_POST['timezone']  = in_array($_POST['timezone'], \DateTimeZone::listIdentifiers()) ? Database::clean_string($_POST['timezone']) : $this->settings->default_timezone;
             $_POST['twofa_is_enabled']  = (bool) $_POST['twofa_is_enabled'];
             $_POST['twofa_token']       = trim(filter_var($_POST['twofa_token'], FILTER_SANITIZE_STRING));
             $twofa_secret               = $_POST['twofa_is_enabled'] ? $this->user->twofa_secret : null;
-
-            /* Billing */
-            if(empty($this->user->payment_subscription_id)) {
-                $_POST['billing_type'] = in_array($_POST['billing_type'], ['personal', 'business']) ? Database::clean_string($_POST['billing_type']) : 'personal';
-                $_POST['billing_name'] = trim(Database::clean_string($_POST['billing_name']));
-                $_POST['billing_address'] = trim(Database::clean_string($_POST['billing_address']));
-                $_POST['billing_city'] = trim(Database::clean_string($_POST['billing_city']));
-                $_POST['billing_county'] = trim(Database::clean_string($_POST['billing_county']));
-                $_POST['billing_zip'] = trim(Database::clean_string($_POST['billing_zip']));
-                $_POST['billing_country'] = array_key_exists($_POST['billing_country'], get_countries_array()) ? Database::clean_string($_POST['billing_country']) : 'US';
-                $_POST['billing_phone'] = trim(Database::clean_string($_POST['billing_phone']));
-                $_POST['billing_tax_id'] = $_POST['billing_type'] == 'business' ? trim(Database::clean_string($_POST['billing_tax_id'])) : '';
-                $_POST['billing'] = json_encode([
-                    'type' => $_POST['billing_type'],
-                    'name' => $_POST['billing_name'],
-                    'address' => $_POST['billing_address'],
-                    'city' => $_POST['billing_city'],
-                    'county' => $_POST['billing_county'],
-                    'zip' => $_POST['billing_zip'],
-                    'country' => $_POST['billing_country'],
-                    'phone' => $_POST['billing_phone'],
-                    'tax_id' => $_POST['billing_tax_id'],
-                ]);
-            }
 
             /* Check for any errors */
             if(!Csrf::check()) {
@@ -97,59 +73,13 @@ class Account extends Controller {
 
             if(empty($_SESSION['error'])) {
 
-                /* Only update the billing if no active subscriptions are found */
-                if(!empty($this->user->payment_subscription_id)) {
-                    $_POST['billing'] = json_encode($this->user->billing);
-                }
-
                 /* Prepare the statement and execute query */
-                $stmt = Database::$database->prepare("UPDATE `users` SET `name` = ?, `billing` = ?, `timezone` = ?, `twofa_secret` = ? WHERE `user_id` = ?");
-                $stmt->bind_param('sssss', $_POST['name'], $_POST['billing'], $_POST['timezone'], $twofa_secret, $this->user->user_id);
+                $stmt = Database::$database->prepare("UPDATE `users` SET `email` = ?, `name` = ?, `timezone` = ?, `twofa_secret` = ? WHERE `user_id` = {$this->user->user_id}");
+                $stmt->bind_param('ssss', $_POST['email'], $_POST['name'], $_POST['timezone'], $twofa_secret);
                 $stmt->execute();
                 $stmt->close();
 
                 $_SESSION['success'][] = $this->language->account->success_message->account_updated;
-
-                /* Check for an email address change */
-                if($_POST['email'] != $this->user->email) {
-
-                    if($this->settings->email_confirmation) {
-                        $email_activation_code = md5($_POST['email'] . microtime());
-
-                        /* Prepare the email */
-                        $email_template = get_email_template(
-                            [],
-                            $this->language->global->emails->user_pending_email->subject,
-                            [
-                                '{{ACTIVATION_LINK}}' => url('activate-user?email=' . md5($_POST['email']) . '&email_activation_code=' . $email_activation_code . '&type=user_pending_email'),
-                                '{{NAME}}' => $this->user->name,
-                                '{{CURRENT_EMAIL}}' => $this->user->email,
-                                '{{NEW_EMAIL}}' => $_POST['email']
-                            ],
-                            $this->language->global->emails->user_pending_email->body
-                        );
-
-                        send_mail($this->settings, $_POST['email'], $email_template->subject, $email_template->body);
-
-                        /* Save the potential new email as pending */
-                        $stmt = Database::$database->prepare("UPDATE `users` SET `pending_email` = ?, `email_activation_code` = ? WHERE `user_id` = ?");
-                        $stmt->bind_param('sss', $_POST['email'], $email_activation_code, $this->user->user_id);
-                        $stmt->execute();
-                        $stmt->close();
-
-                        $_SESSION['info'][] = $this->language->account->info_message->user_pending_email;
-
-                    } else {
-
-                        /* Save the new email without verification */
-                        $stmt = Database::$database->prepare("UPDATE `users` SET `email` = ? WHERE `user_id` = ?");
-                        $stmt->bind_param('ss', $_POST['email'], $this->user->user_id);
-                        $stmt->execute();
-                        $stmt->close();
-
-                    }
-
-                }
 
                 if(!empty($_POST['old_password']) && !empty($_POST['new_password'])) {
                     $new_password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
@@ -159,9 +89,6 @@ class Account extends Controller {
                     /* Set a success message and log out the user */
                     Authentication::logout();
                 }
-
-                /* Clear the cache */
-                \Altum\Cache::$adapter->deleteItemsByTag('user_id=' . $this->user->user_id);
 
                 redirect('account');
             }
@@ -184,6 +111,26 @@ class Account extends Controller {
         $view = new \Altum\Views\View('account/index', (array) $this);
 
         $this->add_view_content('content', $view->run($data));
+
+    }
+
+    public function delete() {
+
+        Authentication::guard();
+
+        if(!Csrf::check()) {
+            $_SESSION['error'][] = $this->language->global->error_message->invalid_csrf_token;
+            redirect('account');
+        }
+
+        if(empty($_SESSION['error'])) {
+
+            /* Delete the user */
+            (new User(['settings' => $this->settings]))->delete($this->user->user_id);
+
+            Authentication::logout();
+
+        }
 
     }
 

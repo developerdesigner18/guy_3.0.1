@@ -6,36 +6,28 @@
     </div>
 
     <ul class="app-sidebar-links">
-        <li class="<?= \Altum\Routing\Router::$controller == 'Dashboard' && $_GET['altum'] != 'dashboard/goals' ? 'active' : null ?>">
+        <li class="<?= \Altum\Routing\Router::$controller == 'Dashboard' ? 'active' : null ?>">
             <a href="<?= url('dashboard') ?>" data-toggle="tooltip" data-placement="right" title="<?= $this->language->dashboard->menu ?>"><i class="fa fa-fw fa-th"></i></a>
         </li>
 
-        <?php if($this->user->plan_settings->websites_goals_limit != 0): ?>
-        <li class="<?= \Altum\Routing\Router::$controller == 'Dashboard' && $_GET['altum'] == 'dashboard/goals' ? 'active' : null ?>">
-            <a href="<?= url('dashboard/goals') ?>" data-toggle="tooltip" data-placement="right" title="<?= $this->language->analytics->goals ?>"><i class="fa fa-fw fa-bullseye"></i></a>
+        <li class="<?= \Altum\Routing\Router::$controller == 'Realtime' ? 'active' : null ?>">
+            <a href="<?= url('realtime') ?>" data-toggle="tooltip" data-placement="right" title="<?= $this->language->realtime->menu ?>"><i class="fa fa-fw fa-record-vinyl"></i></a>
+        </li>
+
+        <li class="<?= \Altum\Routing\Router::$controller == 'Visitors' ? 'active' : null ?>">
+            <a href="<?= url('visitors') ?>" data-toggle="tooltip" data-placement="right" title="<?= $this->language->visitors->menu ?>"><i class="fa fa-fw fa-user-friends"></i></a>
+        </li>
+
+        <?php if($this->settings->analytics->websites_heatmaps_is_enabled && $this->user->plan_settings->websites_heatmaps_limit != 0): ?>
+        <li class="<?= \Altum\Routing\Router::$controller == 'Heatmaps' ? 'active' : null ?>">
+            <a href="<?= url('heatmaps') ?>" data-toggle="tooltip" data-placement="right" title="<?= $this->language->heatmaps->menu ?>"><i class="fa fa-fw fa-fire"></i></a>
         </li>
         <?php endif ?>
 
-        <li class="<?= \Altum\Routing\Router::$controller == 'Realtime' ? 'active' : null ?>">
-            <a href="<?= url('realtime') ?>" data-toggle="tooltip" data-placement="right" title="<?= $this->language->realtime->menu ?>"><i class="fa fa-fw fa-clock"></i></a>
+        <?php if($this->settings->analytics->sessions_replays_is_enabled): ?>
+        <li class="<?= \Altum\Routing\Router::$controller == 'Replays' ? 'active' : null ?>">
+            <a href="<?= url('replays') ?>" data-toggle="tooltip" data-placement="right" title="<?= $this->language->replays->menu ?>"><i class="fa fa-fw fa-video"></i></a>
         </li>
-
-        <?php if($this->website->tracking_type == 'normal'): ?>
-            <li class="<?= \Altum\Routing\Router::$controller == 'Visitors' ? 'active' : null ?>">
-                <a href="<?= url('visitors') ?>" data-toggle="tooltip" data-placement="right" title="<?= $this->language->visitors->menu ?>"><i class="fa fa-fw fa-user-friends"></i></a>
-            </li>
-
-            <?php if($this->settings->analytics->websites_heatmaps_is_enabled && $this->user->plan_settings->websites_heatmaps_limit != 0): ?>
-            <li class="<?= \Altum\Routing\Router::$controller == 'Heatmaps' ? 'active' : null ?>">
-                <a href="<?= url('heatmaps') ?>" data-toggle="tooltip" data-placement="right" title="<?= $this->language->heatmaps->menu ?>"><i class="fa fa-fw fa-fire"></i></a>
-            </li>
-            <?php endif ?>
-
-            <?php if($this->settings->analytics->sessions_replays_is_enabled): ?>
-            <li class="<?= \Altum\Routing\Router::$controller == 'Replays' ? 'active' : null ?>">
-                <a href="<?= url('replays') ?>" data-toggle="tooltip" data-placement="right" title="<?= $this->language->replays->menu ?>"><i class="fa fa-fw fa-video"></i></a>
-            </li>
-            <?php endif ?>
         <?php endif ?>
 
         <li class="<?= \Altum\Routing\Router::$controller == 'Websites' ? 'active' : null ?>">
