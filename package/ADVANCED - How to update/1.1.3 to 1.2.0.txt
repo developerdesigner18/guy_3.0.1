@@ -1,0 +1,128 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+- Create a new folder named "storage" in the "uploads" folder and set the permissions to 777.
+
+- Fully replace the "vendor" folder
+
+
+File changes:
+
+app/controllers/Account.php
+app/controllers/AccountPlan.php
+app/controllers/Cron.php
+app/controllers/Dashboard.php
+app/controllers/DashboardAjax.php
+app/controllers/Heatmap.php
+app/controllers/Login.php
+app/controllers/Pay.php
+app/controllers/PixelTrack.php
+app/controllers/Register.php
+app/controllers/Replay.php
+app/controllers/ReplaysAjax.php
+app/controllers/WebhookStripe.php
+app/controllers/WebsitesAjax.php
+app/controllers/admin/AdminCodeCreate.php
+app/controllers/admin/AdminCodeUpdate.php
+app/controllers/admin/AdminPages.php
+app/controllers/admin/AdminPlanCreate.php
+app/controllers/admin/AdminPlanUpdate.php
+app/controllers/admin/AdminSettings.php
+app/controllers/admin/AdminUserUpdate.php
+app/controllers/admin/AdminWebsites.php
+app/core/App.php
+app/core/Router.php
+app/helpers/Cache.php
+app/helpers/Captcha.php
+app/helpers/Date.php
+app/helpers/Response.php
+app/helpers/ThemeStyle.php
+app/helpers/others.php
+app/includes/admin_socials.php
+app/includes/product.php
+app/init.php
+app/languages/english#en.json
+app/middlewares/Authentication.php
+themes/altum/assets/css/admin-custom.css
+themes/altum/assets/css/bootstrap-dark.min.css
+themes/altum/assets/css/bootstrap-dark.min.css.map
+themes/altum/assets/css/bootstrap-grid.min.css
+themes/altum/assets/css/bootstrap-grid.min.css.map
+themes/altum/assets/css/bootstrap-reboot.min.css
+themes/altum/assets/css/bootstrap-reboot.min.css.map
+themes/altum/assets/css/bootstrap.min.css
+themes/altum/assets/css/bootstrap.min.css.map
+themes/altum/assets/css/custom.css
+themes/altum/assets/css/datepicker.min.css
+themes/altum/assets/js/functions.js
+themes/altum/assets/js/libraries/fontawesome.min.js
+themes/altum/assets/js/pixel-header.js
+themes/altum/assets/js/pixel-helpers.js
+themes/altum/views/account-payments/index.php
+themes/altum/views/account-plan/index.php
+themes/altum/views/account/index.php
+themes/altum/views/admin/index/index.php
+themes/altum/views/admin/plan-create/index.php
+themes/altum/views/admin/plan-update/index.php
+themes/altum/views/admin/plans/index.php
+themes/altum/views/admin/settings/index.php
+themes/altum/views/admin/statistics/index.php
+themes/altum/views/admin/wrapper.php
+themes/altum/views/app_wrapper.php
+themes/altum/views/basic_wrapper.php
+themes/altum/views/dashboard/ajaxed_partials/countries.php
+themes/altum/views/dashboard/ajaxed_partials/exit_paths.php
+themes/altum/views/dashboard/ajaxed_partials/landing_paths.php
+themes/altum/views/dashboard/ajaxed_partials/paths.php
+themes/altum/views/dashboard/ajaxed_partials/referrer_paths.php
+themes/altum/views/dashboard/ajaxed_partials/referrers.php
+themes/altum/views/dashboard/ajaxed_partials/search_engines_referrers.php
+themes/altum/views/dashboard/ajaxed_partials/social_media_referrers.php
+themes/altum/views/dashboard/index.php
+themes/altum/views/dashboard/partials/default.php
+themes/altum/views/dashboard/partials/paths.php
+themes/altum/views/dashboard/partials/referrers.php
+themes/altum/views/dashboard/referrer_paths_modal.php
+themes/altum/views/heatmap/index.php
+themes/altum/views/index/index.php
+themes/altum/views/login/index.php
+themes/altum/views/page/index.php
+themes/altum/views/partials/analytics/filters_wrapper.php
+themes/altum/views/partials/footer.php
+themes/altum/views/partials/plans.php
+themes/altum/views/pay/index.php
+themes/altum/views/replay/index.php
+themes/altum/views/replays/index.php
+themes/altum/views/visitor/index.php
+themes/altum/views/visitors/index.php
+themes/altum/views/wrapper.php
+
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+IMPORTANT: This update will require you to clean the whole replays table because the method of storing the data for replays was changed. Proceed with caution.
+
+
+COPY & RUN THE FOLLOWING QUERIES
+--------
+alter table users add twofa_secret varchar(16) null after token_code;
+alter table sessions_events add has_bounced int null after viewport_height;
+alter table visitors_sessions add total_events int default 1 null after website_id;
+DELETE FROM `sessions_replays`;
+alter table plans change is_enabled status tinyint not null;
+UPDATE settings SET value = '{\"plan_id\":\"custom\",\"name\":\"Custom\",\"status\":1}' WHERE `key` = 'plan_custom';
+--------
+
+
+
+

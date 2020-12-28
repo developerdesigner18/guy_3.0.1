@@ -1,0 +1,98 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+1. THE EASIEST WAY
+Replace all the folders / files except the "uploads" folder, "install" folder and the "config.php" file.
+
+2. THE ADVANCED WAY
+Copy/Paste the following files, replace if needed.
+
+app/controllers/AccountPayments.php
+app/controllers/Cron.php
+app/controllers/Dashboard.php
+app/controllers/DashboardAjaxNormal.php
+app/controllers/Login.php
+app/controllers/Pay.php
+app/controllers/PixelTrack.php
+app/controllers/Register.php
+app/controllers/Websites.php
+app/controllers/admin/AdminCodes.php
+app/controllers/admin/AdminIndex.php
+app/controllers/admin/AdminPayments.php
+app/controllers/admin/AdminPlanCreate.php
+app/controllers/admin/AdminPlanUpdate.php
+app/controllers/admin/AdminPlans.php
+app/controllers/admin/AdminSettings.php
+app/controllers/admin/AdminTaxes.php
+app/controllers/admin/AdminUsers.php
+app/controllers/admin/AdminWebsites.php
+app/core/App.php
+app/helpers/Date.php
+app/helpers/Filters.php
+app/helpers/ThemeStyle.php
+app/helpers/notifications.php
+app/includes/datepicker_translations.php
+app/init.php
+app/languages/english#en.json
+themes/altum/assets/css/animate.min.css
+themes/altum/assets/css/custom.css
+themes/altum/assets/js/functions.js
+themes/altum/assets/js/libraries/moment-timezone-with-data-10-year-range.min.js
+themes/altum/assets/js/main.js
+themes/altum/views/account-payments/index.php
+themes/altum/views/admin/index/index.php
+themes/altum/views/admin/partials/admin_sidebar.php
+themes/altum/views/admin/settings/index.php
+themes/altum/views/admin/statistics/index.php
+themes/altum/views/admin/user-update/index.php
+themes/altum/views/admin/wrapper.php
+themes/altum/views/app_wrapper.php
+themes/altum/views/basic_wrapper.php
+themes/altum/views/dashboard/ajaxed_partials/browser_languages.php
+themes/altum/views/dashboard/ajaxed_partials/browser_names.php
+themes/altum/views/dashboard/ajaxed_partials/cities.php
+themes/altum/views/dashboard/ajaxed_partials/countries.php
+themes/altum/views/dashboard/ajaxed_partials/device_types.php
+themes/altum/views/dashboard/ajaxed_partials/exit_paths.php
+themes/altum/views/dashboard/ajaxed_partials/goals.php
+themes/altum/views/dashboard/ajaxed_partials/landing_paths.php
+themes/altum/views/dashboard/ajaxed_partials/operating_systems.php
+themes/altum/views/dashboard/ajaxed_partials/paths.php
+themes/altum/views/dashboard/ajaxed_partials/referrer_paths.php
+themes/altum/views/dashboard/ajaxed_partials/referrers.php
+themes/altum/views/dashboard/ajaxed_partials/screen_resolutions.php
+themes/altum/views/dashboard/ajaxed_partials/search_engines_referrers.php
+themes/altum/views/dashboard/ajaxed_partials/social_media_referrers.php
+themes/altum/views/dashboard/ajaxed_partials/utms.php
+themes/altum/views/dashboard/index.php
+themes/altum/views/invoice/invoice_wrapper.php
+themes/altum/views/partials/js_global_variables.php
+themes/altum/views/register/index.php
+themes/altum/views/replay/replay_events.php
+themes/altum/views/replays/index.php
+themes/altum/views/session/ajaxed_partials/events.php
+themes/altum/views/visitor/index.php
+themes/altum/views/visitors/index.php
+themes/altum/views/websites/index.php
+themes/altum/views/websites/website_create_modal.php
+themes/altum/views/websites/website_update_modal.php
+themes/altum/views/wrapper.php
+
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql queries:
+
+
+COPY & RUN THE FOLLOWING QUERIES
+--------
+INSERT INTO `settings` (`key`, `value`) VALUES ('default_theme_style', 'light');
+--------

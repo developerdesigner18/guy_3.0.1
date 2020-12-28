@@ -1,0 +1,197 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+- Fully replace the "vendor" folder
+
+
+File changes:
+
+app/controllers/Cron.php
+app/controllers/Dashboard.php
+app/controllers/DashboardAjax.php
+app/controllers/GoalsAjax.php
+app/controllers/Heatmaps.php
+app/controllers/HeatmapsAjax.php
+app/controllers/Pay.php
+app/controllers/Pixel.php
+app/controllers/PixelTrack.php
+app/controllers/Replay.php
+app/controllers/Replays.php
+app/controllers/ReplaysAjax.php
+app/controllers/Visitors.php
+app/controllers/VisitorsAjax.php
+app/controllers/Websites.php
+app/controllers/WebsitesAjax.php
+app/controllers/admin/AdminPlanCreate.php
+app/controllers/admin/AdminPlanUpdate.php
+app/controllers/admin/AdminSettings.php
+app/controllers/admin/AdminStatistics.php
+app/controllers/admin/AdminUserCreate.php
+app/controllers/admin/AdminUserUpdate.php
+app/core/Language.php
+app/core/Router.php
+app/helpers/Paginator.php
+app/helpers/email.php
+app/helpers/others.php
+app/includes/product.php
+app/init.php
+app/languages/english#en.json
+app/models/Settings.php
+themes/altum/assets/css/admin-bootstrap-dark.min.css
+themes/altum/assets/css/admin-bootstrap.min.css
+themes/altum/assets/css/admin-custom.css
+themes/altum/assets/css/bootstrap-dark.min.css
+themes/altum/assets/css/bootstrap-grid.min.css
+themes/altum/assets/css/bootstrap-reboot.min.css
+themes/altum/assets/css/bootstrap.min.css.map
+themes/altum/assets/css/custom.css
+themes/altum/assets/images/altumcode.png
+themes/altum/assets/js/libraries/bootstrap.min.js
+themes/altum/assets/js/libraries/popper.min.js
+themes/altum/assets/js/pixel-header.js
+themes/altum/assets/js/pixel-helpers.js
+themes/altum/views/account-payments/index.php
+themes/altum/views/account-plan/index.php
+themes/altum/views/account/index.php
+themes/altum/views/admin/code-create/index.php
+themes/altum/views/admin/code-update/index.php
+themes/altum/views/admin/codes/code_delete_modal.php
+themes/altum/views/admin/codes/index.php
+themes/altum/views/admin/index/index.php
+themes/altum/views/admin/page-create/index.php
+themes/altum/views/admin/page-update/index.php
+themes/altum/views/admin/pages-category-create/index.php
+themes/altum/views/admin/pages-category-update/index.php
+themes/altum/views/admin/pages/index.php
+themes/altum/views/admin/pages/page_delete_modal.php
+themes/altum/views/admin/pages/pages_category_delete_modal.php
+themes/altum/views/admin/partials/admin_sidebar.php
+themes/altum/views/admin/partials/footer.php
+themes/altum/views/admin/payments/index.php
+themes/altum/views/admin/plan-create/index.php
+themes/altum/views/admin/plan-update/index.php
+themes/altum/views/admin/plans/index.php
+themes/altum/views/admin/plans/plan_delete_modal.php
+themes/altum/views/admin/settings/index.php
+themes/altum/views/admin/statistics/index.php
+themes/altum/views/admin/statistics/partials/analytics.php
+themes/altum/views/admin/statistics/partials/email_reports.php
+themes/altum/views/admin/statistics/partials/growth.php
+themes/altum/views/admin/statistics/partials/payments.php
+themes/altum/views/admin/user-create/index.php
+themes/altum/views/admin/user-update/index.php
+themes/altum/views/admin/user-view/index.php
+themes/altum/views/admin/users/index.php
+themes/altum/views/admin/users/user_delete_modal.php
+themes/altum/views/admin/users/user_login_modal.php
+themes/altum/views/admin/websites/index.php
+themes/altum/views/admin/websites/website_delete_modal.php
+themes/altum/views/admin/wrapper.php
+themes/altum/views/dashboard/ajaxed_partials/goals.php
+themes/altum/views/dashboard/goal_create_modal.php
+themes/altum/views/dashboard/goal_update_modal.php
+themes/altum/views/dashboard/index.php
+themes/altum/views/dashboard/partials/default.php
+themes/altum/views/dashboard/partials/goals.php
+themes/altum/views/heatmap/heatmap_create_modal.php
+themes/altum/views/heatmap/heatmap_delete_modal.php
+themes/altum/views/heatmap/heatmap_update_modal.php
+themes/altum/views/heatmap/index.php
+themes/altum/views/heatmaps/index.php
+themes/altum/views/help/advanced.php
+themes/altum/views/help/data.php
+themes/altum/views/help/privacy.php
+themes/altum/views/partials/app_account_sidebar.php
+themes/altum/views/partials/cron/email_reports.php
+themes/altum/views/partials/email.html
+themes/altum/views/partials/footer.php
+themes/altum/views/partials/pagination.php
+themes/altum/views/partials/plans.php
+themes/altum/views/pay/index.php
+themes/altum/views/pixel/index.php
+themes/altum/views/replay/index.php
+themes/altum/views/replay/replay_delete_modal.php
+themes/altum/views/replay/replay_events.php
+themes/altum/views/replay/replay_events_modal.php
+themes/altum/views/replays/index.php
+themes/altum/views/session/ajaxed_partials/events.php
+themes/altum/views/visitor/visitor_delete_modal.php
+themes/altum/views/visitors/index.php
+themes/altum/views/websites/index.php
+themes/altum/views/websites/website_create_modal.php
+themes/altum/views/websites/website_delete_modal.php
+themes/altum/views/websites/website_update_modal.php
+
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+IMPORTANT: This update will require you to clean the whole replays table because the method of storing the data for replays was changed. Proceed with caution.
+
+
+COPY & RUN THE FOLLOWING QUERIES
+--------
+INSERT INTO `settings` (`key`, `value`) VALUES ('product_info', '');
+UPDATE `settings` SET `value` = '{\"version\":\"1.3.0\", \"code\":\"130\"}' WHERE `key` = 'product_info';
+CREATE TABLE `websites_goals` (
+`goal_id` int(11) NOT NULL AUTO_INCREMENT,
+`website_id` int(11) NOT NULL,
+`key` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+`type` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+`path` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+`name` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+`date` datetime NOT NULL,
+PRIMARY KEY (`goal_id`),
+KEY `website_id` (`website_id`),
+KEY `key` (`key`),
+CONSTRAINT `websites_goals_ibfk_1` FOREIGN KEY (`website_id`) REFERENCES `websites` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `goals_conversions` (
+`conversion_id` int(11) NOT NULL AUTO_INCREMENT,
+`event_id` int(11) NOT NULL,
+`session_id` int(11) NOT NULL,
+`visitor_id` int(11) NOT NULL,
+`goal_id` int(11) NOT NULL,
+`website_id` int(11) NOT NULL,
+`date` datetime NOT NULL,
+PRIMARY KEY (`conversion_id`),
+KEY `event_id` (`event_id`),
+KEY `session_id` (`session_id`),
+KEY `visitor_id` (`visitor_id`),
+KEY `goal_id` (`goal_id`),
+KEY `website_id` (`website_id`),
+KEY `date` (`date`),
+CONSTRAINT `goals_conversions_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `sessions_events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT `goals_conversions_ibfk_2` FOREIGN KEY (`session_id`) REFERENCES `visitors_sessions` (`session_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT `goals_conversions_ibfk_3` FOREIGN KEY (`visitor_id`) REFERENCES `websites_visitors` (`visitor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT `goals_conversions_ibfk_4` FOREIGN KEY (`goal_id`) REFERENCES `websites_goals` (`goal_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT `goals_conversions_ibfk_5` FOREIGN KEY (`website_id`) REFERENCES `websites` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+alter table websites add email_reports_is_enabled tinyint default 0 null after is_enabled;
+alter table websites add email_reports_last_date datetime null after email_reports_is_enabled;
+UPDATE websites set email_reports_last_date = NOW();
+CREATE TABLE `email_reports` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`user_id` int(11) NOT NULL,
+`website_id` int(11) NOT NULL,
+`date` datetime NOT NULL,
+PRIMARY KEY (`id`),
+KEY `user_id` (`user_id`),
+KEY `website_id` (`website_id`),
+KEY `date` (`date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--------
+
+
+
+

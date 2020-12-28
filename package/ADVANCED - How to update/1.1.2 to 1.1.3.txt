@@ -1,0 +1,110 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+- Create a new folder named "cache" in the "uploads" folder and set the permissions to 777.
+
+- Fully replace the "vendor" folder
+
+- Replace all the folders / files except the "uploads" folder, "install" folder and the "app/config/config.php" file.
+
+
+File changes:
+
+app/controllers/Account.php
+app/controllers/AccountPayments.php
+app/controllers/Cron.php
+app/controllers/Dashboard.php
+app/controllers/DashboardAjax.php
+app/controllers/Heatmap.php
+app/controllers/HeatmapsAjax.php
+app/controllers/Login.php
+app/controllers/Pay.php
+app/controllers/Pixel.php
+app/controllers/PixelTrack.php
+app/controllers/Register.php
+app/controllers/Replay.php
+app/controllers/ReplaysAjax.php
+app/controllers/WebsitesAjax.php
+app/controllers/admin/AdminPageCreate.php
+app/controllers/admin/AdminPageUpdate.php
+app/controllers/admin/AdminPlanCreate.php
+app/controllers/admin/AdminPlanUpdate.php
+app/controllers/admin/AdminSettings.php
+app/controllers/admin/AdminUserCreate.php
+app/controllers/admin/AdminUserUpdate.php
+app/controllers/admin/AdminWebsites.php
+app/core/App.php
+app/core/Database.php
+app/helpers/Cache.php
+app/helpers/others.php
+app/includes/product.php
+app/init.php
+app/languages/english#en.json
+app/middlewares/Authentication.php
+app/models/Page.php
+app/models/Settings.php
+app/models/User.php
+app/models/Website.php
+themes/altum/assets/css/bootstrap.min.css
+themes/altum/assets/css/bootstrap.min.css.map
+themes/altum/assets/css/custom.css
+themes/altum/assets/js/pixel-footer.js
+themes/altum/assets/js/pixel-header.js
+themes/altum/assets/js/pixel-helpers.js
+themes/altum/views/account-payments/index.php
+themes/altum/views/account-plan/index.php
+themes/altum/views/admin/code-update/index.php
+themes/altum/views/admin/plan-create/index.php
+themes/altum/views/admin/plan-update/index.php
+themes/altum/views/admin/settings/index.php
+themes/altum/views/admin/user-update/index.php
+themes/altum/views/heatmap/index.php
+themes/altum/views/partials/menu.php
+themes/altum/views/pixel/index.php
+themes/altum/views/replay/index.php
+themes/altum/views/team/team_association_create_modal.php
+themes/altum/views/teams/index.php
+themes/altum/views/teams/team_create_modal.php
+themes/altum/views/teams/team_update_modal.php
+themes/altum/views/websites/index.php
+themes/altum/views/websites/website_create_modal.php
+themes/altum/views/websites/website_pixel_key_modal.php
+themes/altum/views/websites/website_update_modal.php
+uploads/cache/altum.txt
+
+
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+
+IMPORTANT: This update will require you to clean the whole replays table because the method of storing the data for replays was remade. Proceed with caution.
+
+
+COPY & RUN THE FOLLOWING QUERIES
+--------
+LOCK TABLES sessions_replays WRITE;
+DELETE FROM sessions_replays;
+alter table sessions_replays add events int null after website_id;
+alter table sessions_replays drop column type;
+alter table sessions_replays drop column data;
+alter table sessions_replays add last_date datetime null;
+alter table sessions_replays drop column timestamp;
+alter table sessions_replays add constraint sessions_replays_pk unique (session_id);
+UNLOCK TABLES;
+create index visitors_sessions_date_index on visitors_sessions (date);
+alter table websites add excluded_ips text null after path;
+--------
+
+
+
+

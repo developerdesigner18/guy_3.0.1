@@ -1,0 +1,170 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+This update is massive and all the files have been touched or changed.
+
+Replace all the folders / files except the "uploads" folder, "install" folder and the "app/config/config.php" file.
+
+app/controllers/Cron.php
+app/controllers/Dashboard.php
+app/controllers/Heatmap.php
+app/controllers/Heatmaps.php
+app/controllers/HeatmapsAjax.php
+app/controllers/Login.php
+app/controllers/Pixel.php
+app/controllers/PixelTrack.php
+app/controllers/Register.php
+app/controllers/Replays.php
+app/controllers/ReplaysAjax.php
+app/controllers/Visitor.php
+app/controllers/Visitors.php
+app/controllers/VisitorsAjax.php
+app/controllers/WebhookStripe.php
+app/controllers/WebsitesAjax.php
+app/controllers/admin/AdminPlanCreate.php
+app/controllers/admin/AdminPlanUpdate.php
+app/controllers/admin/AdminSettings.php
+app/controllers/admin/AdminUserCreate.php
+app/controllers/admin/AdminUserUpdate.php
+app/controllers/admin/AdminWebsites.php
+app/core/App.php
+app/core/Router.php
+app/helpers/AnalyticsFilters.php
+app/helpers/Date.php
+app/helpers/others.php
+app/includes/product.php
+app/languages/english.json
+app/models/User.php
+themes/altum/assets/css/admin-custom.css
+themes/altum/assets/css/custom.css
+themes/altum/assets/images/collecting.svg
+themes/altum/assets/images/index/heatmaps.svg
+themes/altum/assets/js/libraries/rrweb.mod.js
+themes/altum/assets/js/libraries/simpleheat.js
+themes/altum/assets/js/pixel-header.js
+themes/altum/assets/js/pixel-helpers.js
+themes/altum/views/account-logs/index.php
+themes/altum/views/account-payments/index.php
+themes/altum/views/account-plan/index.php
+themes/altum/views/account/index.php
+themes/altum/views/admin/code-create/index.php
+themes/altum/views/admin/code-update/index.php
+themes/altum/views/admin/codes/index.php
+themes/altum/views/admin/index/index.php
+themes/altum/views/admin/pages/index.php
+themes/altum/views/admin/partials/admin_sidebar.php
+themes/altum/views/admin/plan-create/index.php
+themes/altum/views/admin/plan-update/index.php
+themes/altum/views/admin/plans/index.php
+themes/altum/views/admin/settings/index.php
+themes/altum/views/admin/user-update/index.php
+themes/altum/views/admin/users/index.php
+themes/altum/views/admin/websites/index.php
+themes/altum/views/app_wrapper.php
+themes/altum/views/dashboard/index.php
+themes/altum/views/dashboard/partials/browser_languages.php
+themes/altum/views/dashboard/partials/browser_names.php
+themes/altum/views/dashboard/partials/countries.php
+themes/altum/views/dashboard/partials/default.php
+themes/altum/views/dashboard/partials/device_types.php
+themes/altum/views/dashboard/partials/operating_systems.php
+themes/altum/views/dashboard/partials/paths.php
+themes/altum/views/dashboard/partials/referrers.php
+themes/altum/views/dashboard/partials/screen_resolutions.php
+themes/altum/views/dashboard/partials/utms.php
+themes/altum/views/heatmap/heatmap_create_modal.php
+themes/altum/views/heatmap/heatmap_delete_modal.php
+themes/altum/views/heatmap/heatmap_retake_snapshots_modal.php
+themes/altum/views/heatmap/heatmap_update_modal.php
+themes/altum/views/heatmap/index.php
+themes/altum/views/heatmaps/index.php
+themes/altum/views/help/index.php
+themes/altum/views/index/index.php
+themes/altum/views/login/index.php
+themes/altum/views/partials/analytics/filters_wrapper.php
+themes/altum/views/partials/app_account_sidebar.php
+themes/altum/views/partials/app_sidebar.php
+themes/altum/views/partials/footer.php
+themes/altum/views/partials/plans.php
+themes/altum/views/pixel/index.php
+themes/altum/views/realtime/index.php
+themes/altum/views/replay/index.php
+themes/altum/views/replays/index.php
+themes/altum/views/replays/replays_delete_modal.php
+themes/altum/views/session/ajaxed_partials/events.php
+themes/altum/views/session/session_events_modal.php
+themes/altum/views/team/index.php
+themes/altum/views/teams/index.php
+themes/altum/views/visitor/index.php
+themes/altum/views/visitors/index.php
+themes/altum/views/websites/index.php
+themes/altum/views/websites/website_create_modal.php
+themes/altum/views/websites/website_update_modal.php
+
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+
+COPY & RUN THE FOLLOWING QUERIES
+--------
+CREATE TABLE `websites_heatmaps` (
+  `heatmap_id` int(11) NOT NULL AUTO_INCREMENT,
+  `website_id` int(11) NOT NULL,
+  `snapshot_id_desktop` int(11) DEFAULT NULL,
+  `snapshot_id_tablet` int(11) DEFAULT NULL,
+  `snapshot_id_mobile` int(11) DEFAULT NULL,
+  `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `path` varchar(1024) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `is_enabled` tinyint(4) NOT NULL DEFAULT '1',
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`heatmap_id`),
+  KEY `website_id` (`website_id`),
+  KEY `snapshot_id_desktop` (`snapshot_id_desktop`),
+  KEY `snapshot_id_tablet` (`snapshot_id_tablet`),
+  KEY `snapshot_id_mobile` (`snapshot_id_mobile`),
+  CONSTRAINT `websites_heatmaps_ibfk_1` FOREIGN KEY (`website_id`) REFERENCES `websites` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `heatmaps_snapshots` (
+  `snapshot_id` int(11) NOT NULL AUTO_INCREMENT,
+  `heatmap_id` int(11) NOT NULL,
+  `website_id` int(11) NOT NULL,
+  `type` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `data` longblob NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`snapshot_id`),
+  KEY `heatmap_id` (`heatmap_id`),
+  KEY `website_id` (`website_id`),
+  KEY `type` (`type`),
+  CONSTRAINT `heatmaps_snapshots_ibfk_1` FOREIGN KEY (`heatmap_id`) REFERENCES `websites_heatmaps` (`heatmap_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `heatmaps_snapshots_ibfk_2` FOREIGN KEY (`website_id`) REFERENCES `websites` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+alter table events_children add snapshot_id int null after visitor_id;
+
+create index events_children_snapshot_id_index on events_children (snapshot_id);
+
+alter table events_children add constraint events_children_heatmaps_snapshots_snapshot_id_fk foreign key (snapshot_id) references heatmaps_snapshots (snapshot_id) on update cascade on delete set null;
+
+alter table websites_heatmaps add CONSTRAINT `websites_heatmaps_ibfk_2` FOREIGN KEY (`snapshot_id_desktop`) REFERENCES `heatmaps_snapshots` (`snapshot_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+alter table websites_heatmaps add  CONSTRAINT `websites_heatmaps_ibfk_3` FOREIGN KEY (`snapshot_id_tablet`) REFERENCES `heatmaps_snapshots` (`snapshot_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+alter table websites_heatmaps add  CONSTRAINT `websites_heatmaps_ibfk_4` FOREIGN KEY (`snapshot_id_mobile`) REFERENCES `heatmaps_snapshots` (`snapshot_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+--------
+
+LAST STEP
+--------------------
+Login to the admin panel, go to the Plans Management page and go through all plans and click the "Update Plan Subscribers" button.

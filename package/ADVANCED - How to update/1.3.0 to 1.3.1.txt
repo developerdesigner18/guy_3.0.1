@@ -1,0 +1,54 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+- Fully replace the "vendor" folder
+
+
+File changes:
+
+app/controllers/GoalsAjax.php
+app/controllers/HeatmapsAjax.php
+app/controllers/Login.php
+app/controllers/Pixel.php
+app/controllers/PixelTrack.php
+app/controllers/Register.php
+app/controllers/Replays.php
+app/controllers/ResetPassword.php
+app/controllers/TeamsAssociationsAjax.php
+app/controllers/admin/AdminPageCreate.php
+app/controllers/admin/AdminPageUpdate.php
+app/controllers/admin/AdminUserView.php
+app/core/App.php
+app/helpers/Date.php
+app/languages/english#en.json
+themes/altum/assets/css/admin-bootstrap-dark.min.css
+themes/altum/assets/css/admin-bootstrap.min.css
+themes/altum/assets/css/admin-custom.css
+themes/altum/assets/css/custom.css
+themes/altum/assets/js/pixel/pixel-footer.js
+themes/altum/assets/js/pixel/pixel-header.js
+themes/altum/assets/js/pixel/pixel-helper-rr.js
+themes/altum/assets/js/pixel/pixel-helpers.js
+themes/altum/views/admin/page-create/index.php
+themes/altum/views/admin/page-update/index.php
+themes/altum/views/admin/pages-category-create/index.php
+themes/altum/views/admin/pages-category-update/index.php
+themes/altum/views/admin/settings/index.php
+themes/altum/views/app_wrapper.php
+themes/altum/views/dashboard/index.php
+themes/altum/views/index/index.php
+themes/altum/views/partials/app_menu.php
+themes/altum/views/partials/app_sidebar.php
+themes/altum/views/partials/email.html
+themes/altum/views/partials/menu.php
+themes/altum/views/team/index.php
+themes/altum/views/teams/team_create_modal.php
+themes/altum/views/teams/team_update_modal.php
+themes/altum/views/visitor/index.php
+themes/altum/views/heatmaps/index.php
+themes/altum/views/pixel/index.php
+

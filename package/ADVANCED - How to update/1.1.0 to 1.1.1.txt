@@ -1,0 +1,29 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+This update is massive and all the files have been touched or changed.
+
+Replace all the folders / files except the "uploads" folder, "install" folder and the "app/config/config.php" file.
+
+app/controllers/Cron.php
+app/controllers/HeatmapsAjax.php
+app/controllers/Pixel.php
+app/controllers/PixelTrack.php
+app/controllers/ReplaysAjax.php
+app/controllers/ResendActivation.php
+app/controllers/VisitorsAjax.php
+app/controllers/admin/AdminPayments.php
+app/controllers/admin/AdminUserUpdate.php
+app/controllers/admin/AdminUsers.php
+app/controllers/admin/AdminWebsites.php
+app/core/App.php
+app/helpers/Date.php
+app/includes/product.php
+app/languages/english.json
+themes/altum/assets/css/custom.css
+themes/altum/assets/js/pixel-header.js
+themes/altum/views/ - WHOLE FOLDER

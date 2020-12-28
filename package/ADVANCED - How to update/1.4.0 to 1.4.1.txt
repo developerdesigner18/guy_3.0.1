@@ -1,0 +1,26 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+
+File changes:
+
+app/controllers/Register.php
+app/controllers/TeamsAjax.php
+app/controllers/TeamsAssociationsAjax.php
+app/controllers/admin/AdminPlanCreate.php
+app/controllers/admin/AdminPlanUpdate.php
+app/controllers/admin/AdminUserUpdate.php
+app/core/App.php
+app/languages/english#en.json
+themes/altum/assets/js/pixel/pixel-footer.js
+themes/altum/views/account-plan/index.php
+themes/altum/views/admin/plan-create/index.php
+themes/altum/views/admin/plan-update/index.php
+themes/altum/views/admin/user-update/index.php
+themes/altum/views/partials/plans.php
+themes/altum/views/register/index.php
+themes/altum/views/teams/index.php

@@ -1,0 +1,44 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+- Fully replace the "vendor" folder
+
+
+File changes:
+
+All the files have been altered in this update as it is a massive update.
+
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+IMPORTANT: This update will require you to clean the whole replays table because the method of storing the data for replays was changed. Proceed with caution.
+
+
+COPY & RUN THE FOLLOWING QUERIES
+--------
+UPDATE `settings` SET `value` = '{\"version\":\"1.4.0\", \"code\":\"140\"}' WHERE `key` = 'product_info';
+alter table users modify country varchar(32) default null;
+UPDATE websites_visitors SET last_date = date WHERE last_date IS NULL;
+alter table plans modify monthly_price float null;
+alter table plans modify annual_price float null;
+alter table plans add lifetime_price float null after annual_price;
+INSERT INTO `settings` (`key`, `value`) VALUES ('offline_payment', '{\"is_enabled\":\"0\",\"instructions\":\"Your offline payment instructions go here..\"}');
+--------
+
+
+COPY & RUN THE FOLLOWING QUERIES ONLY IF YOU HAVE THE EXTENDED LICENSE
+--------
+alter table payments add status tinyint default 1 null after currency;
+alter table payments add payment_proof varchar(40) default null after currency;
+UPDATE payments SET type = 'one_time' WHERE type = 'one-time';
+--------

@@ -1,0 +1,108 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+This update is massive and all the files have been touched or changed.
+
+Replace all the folders / files except the "uploads" folder, "install" folder and the "app/config/config.php" file.
+
+
+app/controllers/Page.php
+app/controllers/Pages.php
+app/controllers/Pay.php
+app/controllers/Replays.php
+app/controllers/ReplaysAjax.php
+app/controllers/admin/AdminPageCreate.php
+app/controllers/admin/AdminPageUpdate.php
+app/controllers/admin/AdminPages.php
+app/controllers/admin/AdminPagesCategories.php
+app/controllers/admin/AdminPagesCategoryCreate.php
+app/controllers/admin/AdminPagesCategoryUpdate.php
+app/controllers/admin/AdminUserUpdate.php
+app/core/Router.php
+app/helpers/others.php
+app/helpers/strings.php
+app/includes/datepicker_translations.php
+app/languages/english.json
+themes/altum/assets/css/bootstrap.min.css
+themes/altum/assets/css/bootstrap.min.css.map
+themes/altum/assets/css/custom.css
+themes/altum/assets/scss/bootstrap.scss
+themes/altum/views/account-plan/index.php
+themes/altum/views/admin/code-create/index.php
+themes/altum/views/admin/code-update/index.php
+themes/altum/views/admin/page-create/index.php
+themes/altum/views/admin/page-update/index.php
+themes/altum/views/admin/pages-category-create/index.php
+themes/altum/views/admin/pages-category-update/index.php
+themes/altum/views/admin/pages/index.php
+themes/altum/views/admin/pages/pages_category_delete_modal.php
+themes/altum/views/admin/partials/admin_sidebar.php
+themes/altum/views/admin/settings/index.php
+themes/altum/views/admin/user-create/index.php
+themes/altum/views/admin/user-update/index.php
+themes/altum/views/help/data.php
+themes/altum/views/help/faq.php
+themes/altum/views/help/install.php
+themes/altum/views/help/introduction.php
+themes/altum/views/help/setup.php
+themes/altum/views/help/verify.php
+themes/altum/views/page/index.php
+themes/altum/views/pages/index.php
+themes/altum/views/pages/pages_category.php
+themes/altum/views/partials/app_menu.php
+themes/altum/views/partials/footer.php
+themes/altum/views/partials/menu.php
+themes/altum/views/replays/index.php
+themes/altum/views/replays/replays_delete_modal.php
+themes/altum/views/sitemap/index.php
+themes/altum/views/websites/index.php
+themes/altum/views/websites/website_create_modal.php
+themes/altum/views/websites/website_update_modal.php
+themes/altum/views/wrapper.php
+
+
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+
+COPY & RUN THE FOLLOWING QUERIES
+--------
+alter table users modify timezone varchar(32) default 'UTC' null;
+CREATE TABLE `pages_categories` (
+  `pages_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `title` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `description` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `icon` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`pages_category_id`),
+  KEY `url` (`url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+alter table pages add pages_category_id int null after page_id;
+create index pages_pages_category_id_index on pages (pages_category_id);
+create index pages_url_index on pages (url);
+alter table pages
+	add constraint pages_pages_categories_pages_category_id_fk
+		foreign key (pages_category_id) references pages_categories (pages_category_id)
+		on update cascade on delete cascade;
+alter table pages add `order` int default 0 null;
+alter table pages add total_views int default 0 null;
+alter table pages modify title varchar(64) default '' not null after url;
+alter table pages change description content text null;
+alter table pages add description varchar(128) null after title;
+alter table pages add date datetime null;
+alter table pages add last_date datetime null;
+update pages set date = now(), last_date = now();
+--------
+
+
